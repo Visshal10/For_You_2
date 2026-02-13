@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>A Soft Place For You 🌙</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f172a,#1e293b,#312e81);
+color:white;
+height:100vh;
+overflow:hidden;
+transition:background 2s ease;
+}
+
+.page{
+display:none;
+height:100vh;
+width:100%;
+padding:30px;
+text-align:center;
+position:relative;
+}
+
+.page.active{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+h1{
+font-size:2rem;
+margin-bottom:20px;
+}
+
+p{
+font-size:1.1rem;
+max-width:750px;
+line-height:1.8;
+opacity:0.95;
+}
+
+button{
+margin-top:35px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:#ff6f91;
+color:white;
+font-size:1rem;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+background:#ff4d79;
+}
+
+/* floating flowers */
+.float{
+position:absolute;
+font-size:1.8rem;
+animation:float 8s infinite ease-in-out;
+opacity:0.7;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-30px);}
+100%{transform:translateY(0);}
+}
+
+/* breathing circle */
+.breath{
+width:120px;
+height:120px;
+border-radius:50%;
+background:rgba(255,255,255,0.1);
+margin-top:20px;
+animation:breath 4s infinite ease-in-out;
+}
+
+@keyframes breath{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
+/* hidden message */
+.hidden{
+opacity:0;
+margin-top:20px;
+transition:opacity 1.5s ease;
+}
+.show{
+opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5f1b4fcd70.mp3?filename=relaxing-meditation-ambient-112191.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active">
+<h1>Hey You 🌙</h1>
+<p>
+Long day?  
+Heavy mind?  
+Too many responsibilities?
+
+Okay. Pause.
+
+This page is your 2-minute safe space.
+</p>
+
+<div class="breath"></div>
+
+<div class="float" style="top:20%;left:10%">🌸</div>
+<div class="float" style="top:70%;right:10%">✨</div>
+
+<button onclick="nextPage()">Continue 🤍</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+<h1>First Thing 🌷</h1>
+<p>
+I’m genuinely proud of you.
+
+Managing work.  
+Preparing for exams.  
+Living independently.  
+Handling stress quietly.
+
+Not everyone can do that.
+
+But you do.
+And you do it gracefully.
+</p>
+
+<div class="float" style="top:25%;right:15%">🌹</div>
+<div class="float" style="bottom:20%;left:15%">💫</div>
+
+<button onclick="nextPage()">Next ➜</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+<h1>Second Thing 💭</h1>
+<p>
+You believe in me so confidently.
+
+Even when I doubt myself,
+you don’t.
+
+That kind of support?
+It’s rare.
+And it matters more than you know.
+</p>
+
+<div class="float" style="top:20%;left:20%">🌷</div>
+<div class="float" style="bottom:20%;right:20%">✨</div>
+
+<button onclick="nextPage()">Continue ➜</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+<h1>Now Slight Teasing 😏</h1>
+<p>
+Miss Strong Independent Woman…
+
+You give motivational talks,
+act mature,
+pretend you're always sorted.
+
+But also…
+
+You overthink.
+You act tough when you’re tired.
+And you secretly like attention.
+
+And yes…
+I notice everything.
+</p>
+
+<div class="float" style="top:30%;left:10%">🌸</div>
+<div class="float" style="bottom:30%;right:10%">😄</div>
+
+<button onclick="nextPage()">Okay fine ➜</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+<h1>About Today 🌹</h1>
+<p>
+No pressure.
+No confession.
+No dramatic dialogue.
+
+Just this —
+
+I’m really glad you’re in my life.
+
+Our bond grew slowly.
+Naturally.
+Without force.
+
+And that’s why it feels safe and special.
+</p>
+
+<div class="float" style="top:20%;left:15%">🌷</div>
+<div class="float" style="bottom:20%;right:15%">✨</div>
+
+<button onclick="nextPage()">One More ➜</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page">
+<h1>Final Thing 🤍</h1>
+<p>
+After such a hectic day,
+I just wanted you to smile a little.
+
+Sleep peacefully.
+Don’t stress too much.
+And keep being exactly who you are.
+
+That’s more than enough.
+</p>
+
+<button onclick="reveal()">One Last Click 💌</button>
+
+<p id="secret" class="hidden" style="font-style:italic;">
+You matter to me.  
+And I hope you always feel safe here. 🌸
+</p>
+
+<div class="float" style="top:20%;left:10%">🌸</div>
+<div class="float" style="top:20%;right:10%">✨</div>
+
+</div>
+
+<script>
+let current=0;
+const pages=document.querySelectorAll('.page');
+
+function nextPage(){
+pages[current].classList.remove('active');
+current++;
+pages[current].classList.add('active');
+}
+
+function reveal(){
+document.getElementById("secret").classList.add("show");
+}
+</script>
+
+</body>
+</html>
